@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8" />
+<title>Alpha Grissin · Vertiv AI Hub — повний AI-стек від CDU до GPU-оптики</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Vertiv AI Hub від Alpha Grissin: рідинне охолодження, AI-UPS, оптика 800G, DCIM, резервна генерація. Datasheet-стек 6 підсистем. 14 тижнів до commissioning." />
+<meta name="theme-color" content="#0F1E3D" />
+<meta name="robots" content="noindex, nofollow" />
+
+<meta property="og:title" content="Alpha Grissin · Vertiv AI Hub" />
+<meta property="og:description" content="Ваш ЦОД не готовий до 100 кВт/стійку. Ми це виправимо. Один підрядник. Весь AI-стек." />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="uk_UA" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+
+<style>
+/* ═══════════════════════════════════════════════════
+   DESIGN TOKENS · Concept 02-C
+   ═══════════════════════════════════════════════════ */
+:root {
+  --bg:        #F2F5F9;
+  --surface:   #FFFFFF;
+  --tint:      #BCD3EA;
+  --p-light:   #4F90D2;
+  --primary:   #2A6FB5;
+  --p-deep:    #0E5BA8;
+
+  --navy:      #0F1E3D;
+  --navy-2:    #15264A;
+  --navy-3:    #1F325E;
+  --navy-line: #2A4275;
+
+  --orange:    #E85B2D;
+  --amber:     #F4B43A;
+  --green:     #4ADE80;
+  --cyan:      #67D7FF;
+
+  --text:      #14253A;
+  --text-2:    #5C6E84;
+  --border:    #D5DEEA;
+  --grid-line: rgba(15,30,61,.05);
+}
+
+* { box-sizing: border-box; }
+html, body { margin:0; padding:0; font-family:"IBM Plex Sans",system-ui,sans-serif; -webkit-font-smoothing:antialiased; color: var(--text);
+  background: var(--bg);
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+@keyframes blink { 0%, 100% { opacity: 1;} 50% { opacity: .35;} }
+
+/* ─── shared atoms ─── */
+.eyebrow { font-family:"IBM Plex Mono"; font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--text-2); display:flex; align-items:center; gap: 12px;}
+.eyebrow .pip { width: 6px; height: 6px; border-radius: 999px; background: var(--orange); display:inline-block;}
+.eyebrow.on-dark { color: #9bb1d4;}
+
+.btn-primary { background: var(--orange); color: #fff; padding: 14px 22px; font-family:"IBM Plex Mono"; font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; transition: background .15s;}
+.btn-primary:hover { background: #D04F25;}
+.btn-primary .arr { font-family:"JetBrains Mono"; font-size: 13px;}
+
+.btn-secondary { background: transparent; color: var(--text); padding: 13px 20px; font-family:"IBM Plex Mono"; font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; border: 1px solid var(--border); cursor: pointer; transition: .15s;}
+.btn-secondary:hover { border-color: var(--text);}
+.btn-secondary.on-dark { color: #E5EEF8; border-color: var(--navy-line);}
+.btn-secondary.on-dark:hover { border-color: #fff;}
+
+/* ─── nav ─── */
+.nav-bar { background: var(--navy); border-bottom: 1px solid var(--navy-3); padding: 14px 48px; display:flex; align-items:center; gap: 32px; position: sticky; top: 0; z-index: 40;}
+.nav-bar .logo { font-family:"IBM Plex Sans"; font-weight: 600; letter-spacing: -.01em; font-size: 16px; color: #fff;}
+.nav-bar .logo span { color: var(--orange); font-family:"IBM Plex Mono"; font-size: 12px; margin-left: 8px;}
+.nav-bar .links { display:flex; gap: 28px; font-family:"IBM Plex Mono"; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #9bb1d4;}
+.nav-bar .links a { color: inherit; text-decoration: none; cursor: pointer; transition: color .15s;}
+.nav-bar .links a:hover { color: #fff;}
+.nav-bar .actions { margin-left: auto; display:flex; gap: 12px; align-items: center;}
+.nav-bar .lang { font-family:"IBM Plex Mono"; font-size: 11px; color: #9bb1d4;}
+.nav-bar .lang b { color: #fff;}
+
+/* ═══════════════════════════════════════════════════
+   HERO · navy full-bleed + terminal
+   ═══════════════════════════════════════════════════ */
+.va-hero { background: var(--navy); color: #E5EEF8; padding: 80px 48px 64px; position: relative; overflow: hidden;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.025) 1px, transparent 1px),
+    radial-gradient(ellipse at 85% 100%, rgba(103,215,255,.12) 0%, transparent 55%);
+  background-size: 32px 32px, 32px 32px, 100% 100%;
+}
+.va-hero .inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1.05fr 1fr; gap: 64px; align-items: start;}
+.va-hero .eyebrow { color: #9bb1d4; margin-bottom: 28px;}
+.va-hero .live { color: var(--orange); font-weight: 500;}
+.va-hero .live::before { content: "● "; animation: blink 1.6s ease-in-out infinite;}
+.va-hero h1 { font-family:"IBM Plex Sans"; font-weight: 600; font-size: 64px; line-height: 1.02; letter-spacing: -.024em; color: #fff; margin: 0 0 24px; max-width: 16ch;}
+.va-hero h1 em { font-style: normal; color: var(--orange);}
+.va-hero .accent-line { height: 2px; width: 56px; background: var(--orange); margin: 0 0 24px;}
+.va-hero .sub { font-family:"Source Serif 4"; font-size: 18px; line-height: 1.5; color: #c9d4e3; margin: 0 0 36px; max-width: 52ch;}
+.va-hero .sub b { color: #fff; font-weight: 500;}
+.va-hero .cta-row { display: flex; gap: 12px; margin-bottom: 48px; flex-wrap: wrap;}
+.va-hero .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding-top: 28px; border-top: 1px solid var(--navy-3);}
+.va-hero .stats .s b { display: block; font-family:"IBM Plex Sans"; font-size: 28px; font-weight: 600; color: #fff; letter-spacing: -.014em; margin-bottom: 4px;}
+.va-hero .stats .s.hot b { color: var(--orange);}
+.va-hero .stats .s span { font-family:"JetBrains Mono"; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: #6e8aae;}
+
+/* terminal block */
+.va-hero .term { background: rgba(0,0,0,.32); border: 1px solid var(--navy-3); padding: 18px 22px; font-family:"JetBrains Mono"; font-size: 12.5px; line-height: 1.7; color: #d2dfe9;}
+.va-hero .term .ti { display:flex; justify-content:space-between; align-items:center; padding-bottom: 10px; margin-bottom: 8px; border-bottom: 1px solid var(--navy-3); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: #9bb1d4;}
+.va-hero .term .ti .dots { display: flex; gap: 4px;}
+.va-hero .term .ti .dots span { width: 8px; height: 8px; border-radius: 999px;}
+.va-hero .term .ti .dots span:nth-child(1) { background: var(--orange);}
+.va-hero .term .ti .dots span:nth-child(2) { background: var(--amber);}
+.va-hero .term .ti .dots span:nth-child(3) { background: var(--green);}
+.va-hero .term .blk { display: block;}
+.va-hero .term .pr { color: var(--p-light);}
+.va-hero .term .ok { color: var(--green);}
+.va-hero .term .num { color: var(--orange);}
+.va-hero .term .dim { color: #6e8aae;}
+.va-hero .term .warn { color: var(--amber);}
+.va-hero .term .cur::after { content: "▍"; color: var(--orange); animation: blink 1s steps(1) infinite;}
+
+/* ═══════════════════════════════════════════════════
+   COMPARE — datasheet table
+   ═══════════════════════════════════════════════════ */
+.va-compare { padding: 80px 48px; max-width: 1280px; margin: 0 auto;}
+.va-compare .head { display: grid; grid-template-columns: 100px 1fr; gap: 32px; align-items: end; padding-bottom: 20px; border-bottom: 1px solid var(--text); margin-bottom: 48px;}
+.va-compare .head .num { font-family:"IBM Plex Mono"; font-size: 56px; line-height: .9; color: var(--orange); font-weight: 500;}
+.va-compare .head h2 { margin: 0 0 8px; font-size: 40px; font-weight: 600; letter-spacing: -.02em; line-height: 1.05;}
+.va-compare .head h2 em { font-style: normal; color: var(--primary);}
+.va-compare .head p { margin: 0; font-family:"Source Serif 4"; font-size: 16px; color: var(--text-2); max-width: 70ch; line-height: 1.5;}
+
+.va-compare table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--border);}
+.va-compare th, .va-compare td { padding: 16px 20px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top;}
+.va-compare th { font-family:"IBM Plex Mono"; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--text-2); font-weight: 500; background: var(--bg); padding: 14px 20px;}
+.va-compare th.hot { background: var(--navy); color: #fff;}
+.va-compare th.hot::before { content: "● "; color: var(--orange);}
+.va-compare td:first-child { font-family:"IBM Plex Mono"; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--text-2); width: 22%;}
+.va-compare td.classic { font-family:"JetBrains Mono"; font-size: 13px; color: var(--text); width: 32%;}
+.va-compare td.ai { font-family:"JetBrains Mono"; font-size: 13px; color: var(--navy); font-weight: 500; width: 32%; background: rgba(42,111,181,.04);}
+.va-compare td.ai b { color: var(--orange); font-weight: 500;}
+.va-compare td.delta { font-family:"JetBrains Mono"; font-size: 12px; color: var(--text-2); width: 14%;}
+.va-compare td.delta b { color: var(--orange); font-weight: 500;}
+.va-compare tr:last-child td { border-bottom: none;}
+.va-compare .footnote { margin-top: 14px; font-family:"JetBrains Mono"; font-size: 11px; color: var(--text-2);}
+.va-compare .footnote b { color: var(--text);}
+
+/* ═══════════════════════════════════════════════════
+   STACK — full datasheet on navy
+   ═══════════════════════════════════════════════════ */
+.va-stack { background: var(--navy); color: #E5EEF8; padding: 80px 48px;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+.va-stack .inner { max-width: 1280px; margin: 0 auto;}
+.va-stack .head { display: grid; grid-template-columns: 100px 1fr auto; gap: 32px; align-items: end; padding-bottom: 20px; border-bottom: 1px solid var(--navy-3); margin-bottom: 32px;}
+.va-stack .head .num { font-family:"IBM Plex Mono"; font-size: 56px; line-height: .9; color: var(--orange); font-weight: 500;}
+.va-stack .head h2 { margin: 0 0 8px; font-size: 40px; font-weight: 600; letter-spacing: -.02em; line-height: 1.05; color: #fff;}
+.va-stack .head h2 em { color: var(--p-light); font-style: normal;}
+.va-stack .head p { margin: 0; font-family:"Source Serif 4"; font-size: 16px; color: #9bb1d4; max-width: 60ch; line-height: 1.5;}
+.va-stack .head .legend { font-family:"JetBrains Mono"; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: #6e8aae; text-align: right; line-height: 1.7;}
+.va-stack .head .legend b { color: #fff;}
+
+.va-stack table { width: 100%; border-collapse: collapse;}
+.va-stack th, .va-stack td { padding: 18px 20px; text-align: left; border-bottom: 1px solid var(--navy-3); vertical-align: middle;}
+.va-stack th { font-family:"IBM Plex Mono"; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: #6e8aae; font-weight: 500; padding: 12px 20px;}
+.va-stack tr.row { transition: background .15s;}
+.va-stack tr.row:hover { background: rgba(255,255,255,.02);}
+.va-stack td.idx { width: 60px; font-family:"JetBrains Mono"; font-size: 13px; color: var(--orange); font-weight: 500;}
+.va-stack td.comp { width: 26%;}
+.va-stack td.comp b { display: block; font-family:"IBM Plex Sans"; font-weight: 600; font-size: 17px; color: #fff; letter-spacing: -.005em; margin-bottom: 4px;}
+.va-stack td.comp span { font-family:"JetBrains Mono"; font-size: 11px; color: #9bb1d4;}
+.va-stack td.vendor { width: 18%; font-family:"JetBrains Mono"; font-size: 12px; color: #c9d4e3;}
+.va-stack td.vendor b { color: #fff; font-weight: 500;}
+.va-stack td.spec { width: 22%; font-family:"JetBrains Mono"; font-size: 13px; color: var(--cyan); font-weight: 500;}
+.va-stack td.spec.hot { color: var(--orange);}
+.va-stack td.use { width: 28%; font-family:"IBM Plex Sans"; font-size: 13.5px; line-height: 1.5; color: #c9d4e3;}
+.va-stack td.status { width: 6%; text-align: right;}
+.va-stack td.status::after { content: "●"; color: var(--green); font-size: 10px;}
+
+/* ═══════════════════════════════════════════════════
+   TRUST + FORM
+   ═══════════════════════════════════════════════════ */
+.va-trust { padding: 80px 48px; max-width: 1280px; margin: 0 auto;}
+.va-trust .head { display: grid; grid-template-columns: 100px 1fr; gap: 32px; align-items: end; padding-bottom: 20px; border-bottom: 1px solid var(--text); margin-bottom: 48px;}
+.va-trust .head .num { font-family:"IBM Plex Mono"; font-size: 56px; line-height: .9; color: var(--orange); font-weight: 500;}
+.va-trust .head h2 { margin: 0 0 8px; font-size: 40px; font-weight: 600; letter-spacing: -.02em; line-height: 1.05;}
+.va-trust .head h2 em { color: var(--primary); font-style: normal;}
+.va-trust .head p { margin: 0; font-family:"Source Serif 4"; font-size: 16px; color: var(--text-2); max-width: 60ch; line-height: 1.5;}
+
+.va-trust .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px;}
+.va-trust .left { background: var(--surface); border: 1px solid var(--border); padding: 32px;}
+.va-trust .left h4 { font-family:"IBM Plex Mono"; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--text-2); margin: 0 0 18px; font-weight: 500;}
+.va-trust .left .ref { padding: 16px 0; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center;}
+.va-trust .left .ref:last-child { border-bottom: none;}
+.va-trust .left .ref b { display: block; font-family:"IBM Plex Sans"; font-weight: 600; font-size: 15px; color: var(--text); letter-spacing: -.005em; margin-bottom: 3px;}
+.va-trust .left .ref span { font-family:"JetBrains Mono"; font-size: 11px; color: var(--text-2);}
+.va-trust .left .ref .badge { font-family:"IBM Plex Mono"; font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase; padding: 4px 8px; background: var(--navy); color: #fff; align-self: center;}
+.va-trust .left .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border);}
+.va-trust .left .stat-row .s b { display: block; font-family:"IBM Plex Sans"; font-size: 24px; font-weight: 600; color: var(--navy); letter-spacing: -.012em;}
+.va-trust .left .stat-row .s span { font-family:"JetBrains Mono"; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--text-2);}
+
+.va-form { background: var(--surface); border: 1px solid var(--border); padding: 32px;}
+.va-form h4 { font-family:"IBM Plex Sans"; font-size: 24px; font-weight: 600; letter-spacing: -.012em; margin: 0 0 4px; color: var(--navy);}
+.va-form h4 em { color: var(--orange); font-style: normal;}
+.va-form .lede { font-family:"Source Serif 4"; font-size: 14px; color: var(--text-2); margin: 0 0 24px; line-height: 1.5;}
+.va-form .field { margin-bottom: 18px;}
+.va-form label { display: block; font-family:"IBM Plex Mono"; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--text-2); margin-bottom: 8px;}
+.va-form label b { color: var(--orange);}
+.va-form .chips { display: flex; flex-wrap: wrap; gap: 6px;}
+.va-form .chip { font-family:"IBM Plex Mono"; font-size: 11px; letter-spacing: .06em; padding: 8px 12px; border: 1px solid var(--border); background: var(--bg); color: var(--text); cursor: pointer; transition: .15s; text-transform: uppercase;}
+.va-form .chip:hover { border-color: var(--text);}
+.va-form .chip.on { background: var(--navy); color: #fff; border-color: var(--navy);}
+.va-form input { width: 100%; padding: 12px 14px; font-family:"IBM Plex Sans"; font-size: 14px; background: var(--bg); border: 1px solid var(--border); color: var(--text); outline: none; transition: border-color .15s;}
+.va-form input:focus { border-color: var(--primary);}
+.va-form .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px;}
+.va-form button { width: 100%; margin-top: 8px; justify-content: center;}
+.va-form .micro { font-family:"JetBrains Mono"; font-size: 11px; color: var(--text-2); margin-top: 14px; line-height: 1.5; text-align: center;}
+
+/* ═══════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════ */
+.foot { background: var(--navy); color: #9bb1d4; padding: 56px 48px 28px; }
+.foot .top { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 32px; padding-bottom: 28px; border-bottom: 1px solid var(--navy-3);}
+.foot h5 { font-family:"IBM Plex Mono"; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: #fff; margin: 0 0 14px; font-weight: 500;}
+.foot p, .foot li { font-size: 13px; line-height: 1.65; color: #9bb1d4; margin: 0; font-family:"IBM Plex Sans";}
+.foot ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px;}
+.foot .brand { font-family:"IBM Plex Sans"; font-weight: 600; color: #fff; font-size: 18px; letter-spacing: -.01em; margin-bottom: 8px;}
+.foot .bottom { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding-top: 20px; font-family:"IBM Plex Mono"; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase;}
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  .va-hero { padding: 64px 32px 56px;}
+  .va-hero .inner { grid-template-columns: 1fr; gap: 40px;}
+  .va-hero h1 { font-size: 52px;}
+  .va-hero .stats { grid-template-columns: repeat(2, 1fr);}
+  .va-compare { padding: 64px 32px;}
+  .va-compare .head { grid-template-columns: 1fr; gap: 12px;}
+  .va-compare .head .num { font-size: 40px;}
+  .va-compare .head h2 { font-size: 32px;}
+  .va-compare table { display: block; overflow-x: auto;}
+  .va-stack { padding: 64px 32px;}
+  .va-stack .head { grid-template-columns: 1fr; gap: 12px;}
+  .va-stack .head .num { font-size: 40px;}
+  .va-stack .head h2 { font-size: 32px;}
+  .va-stack .head .legend { display: none;}
+  .va-stack table { display: block; overflow-x: auto;}
+  .va-trust { padding: 64px 32px;}
+  .va-trust .head { grid-template-columns: 1fr; gap: 12px;}
+  .va-trust .head .num { font-size: 40px;}
+  .va-trust .head h2 { font-size: 32px;}
+  .va-trust .grid { grid-template-columns: 1fr;}
+  .foot .top { grid-template-columns: 1fr 1fr;}
+}
+@media (max-width: 720px) {
+  .nav-bar { padding: 12px 20px; gap: 16px;}
+  .nav-bar .links { display: none;}
+  .va-hero { padding: 48px 20px 40px;}
+  .va-hero h1 { font-size: 40px;}
+  .va-hero .sub { font-size: 16px;}
+  .va-hero .term { font-size: 11px; padding: 14px 16px;}
+  .va-compare { padding: 48px 20px;}
+  .va-stack { padding: 48px 20px;}
+  .va-trust { padding: 48px 20px;}
+  .va-trust .left, .va-form { padding: 24px 20px;}
+  .va-trust .left .stat-row { grid-template-columns: 1fr;}
+  .foot { padding: 40px 20px 24px;}
+  .foot .top { grid-template-columns: 1fr;}
+  .foot .bottom { flex-direction: column; gap: 8px; text-align: center;}
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav class="nav-bar">
+  <div class="logo">Alpha Grissin <span>· AI HUB</span></div>
+  <div class="links">
+    <a href="#stack">Стек</a>
+    <a href="#compare">Use cases</a>
+    <a href="#trust">Об'єкти</a>
+    <a href="#contact">Compliance</a>
+    <a href="#contact">Контакт</a>
+  </div>
+  <div class="actions">
+    <span class="lang"><b>UA</b> / EN</span>
+    <a href="#contact" style="text-decoration:none;"><button class="btn-primary">Консультація <span class="arr">→</span></button></a>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="va-hero">
+  <div class="inner">
+    <div>
+      <div class="eyebrow">
+        <span><span class="pip"></span>VERTIV AI HUB · ALPHA GRISSIN UKRAINE</span>
+        <span style="color: var(--navy-line);">│</span>
+        <span class="live">LIVE · 1.18 PUE · 96 GPU ONLINE</span>
+      </div>
+      <h1>Ваш ЦОД не готовий до <em>100&nbsp;кВт</em>/стійку. Ми це виправимо.</h1>
+      <div class="accent-line"></div>
+      <p class="sub">GPU-кластери NVIDIA H100/H200/GB200 генерують <b>70–100+ кВт/стійку</b> — у 20 разів більше за класичний ЦОД. Це не апгрейд. Це нова архітектура: рідинне охолодження CDU/DLC, AI-оптимізований UPS, GPU-оптика 800G. <b>Один підрядник. Весь стек.</b></p>
+      <div class="cta-row">
+        <a href="#contact" style="text-decoration:none;"><button class="btn-primary">Отримати інженерну консультацію <span class="arr">→</span></button></a>
+        <button class="btn-secondary on-dark">Технічний datasheet</button>
+      </div>
+      <div class="stats">
+        <div class="s hot"><b>1.18</b><span>PUE TARGET</span></div>
+        <div class="s"><b>500 kW</b><span>RACK / DENSITY</span></div>
+        <div class="s"><b>Tier III</b><span>UPTIME · TIA-942</span></div>
+        <div class="s"><b>14 wk</b><span>DEPLOY · TURN-KEY</span></div>
+      </div>
+    </div>
+
+    <div class="term">
+      <div class="ti">
+        <span>commissioning · run #4128</span>
+        <span class="dots"><span></span><span></span><span></span></span>
+      </div>
+      <span class="blk"><span class="pr">ag &gt;</span> hub provision <span class="dim">--profile</span> ai-tier3 <span class="dim">--racks</span> <span class="num">8</span></span>
+      <span class="blk"><span class="dim">  ▸ liquid coolant loop ......... </span><span class="ok">ready</span></span>
+      <span class="blk"><span class="dim">  ▸ ups 2N+1 handshake .......... </span><span class="ok">ready</span></span>
+      <span class="blk"><span class="dim">  ▸ optical fabric (</span><span class="num">800G</span><span class="dim">) ........ </span><span class="ok">ready</span></span>
+      <span class="blk"><span class="dim">  ▸ gpu enumeration ............. </span><span class="num">96/96</span></span>
+      <span class="blk"><span class="dim">  ▸ thermal margin .............. </span><span class="warn">12.4°C</span> <span class="dim">(within tol.)</span></span>
+      <span class="blk" style="margin-top: 6px;"><span class="ok">✓</span> ai hub online <span class="dim">·</span> PUE <span class="num">1.18</span> <span class="dim">·</span> <span class="num">1.20 MW</span></span>
+      <span class="blk" style="margin-top: 6px;"><span class="pr">ag &gt;</span> tail <span class="dim">--metric</span> pue <span class="dim">--last</span> <span class="num">24h</span></span>
+      <span class="blk"><span class="dim">  </span><span class="cur"></span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── COMPARE — datasheet table ─── -->
+<section class="va-compare" id="compare">
+  <div class="head">
+    <div class="num">02</div>
+    <div>
+      <h2>Не апгрейд. <em>Нова архітектура.</em></h2>
+      <p>Класичний ЦОД проектувався під 3–5 кВт/стійку. AI-навантаження вимагають іншої теплової, електричної та оптичної логіки. Рядок до рядка — що змінюється.</p>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>параметр</th>
+        <th>класичний ЦОД</th>
+        <th class="hot">AI-ready ЦОД · Vertiv AI Hub</th>
+        <th>Δ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Потужність / стійка</td>     <td class="classic">3–5 кВт</td>            <td class="ai">70–100 кВт · до <b>500 кВт</b></td>  <td class="delta"><b>×20</b></td></tr>
+      <tr><td>Охолодження</td>             <td class="classic">Повітряне · CRAC</td>   <td class="ai">Рідинне · <b>CDU / DLC</b></td>      <td class="delta">архітектурна зміна</td></tr>
+      <tr><td>UPS</td>                     <td class="classic">Стандартний онлайн</td> <td class="ai">Liebert · <b>AI-оптимізований</b></td> <td class="delta">транзієнти GPU</td></tr>
+      <tr><td>Оптика</td>                  <td class="classic">10–25 GbE мідь</td>     <td class="ai">HUBER+SUHNER · <b>800 G</b></td>     <td class="delta">×32 throughput</td></tr>
+      <tr><td>Моніторинг</td>              <td class="classic">BMS · базовий DCIM</td> <td class="ai">Vertiv Trellis · <b>per-GPU</b></td>  <td class="delta">видимість кластера</td></tr>
+      <tr><td>Резервна генерація</td>      <td class="classic">Diesel</td>             <td class="ai">Cummins · <b>diesel + gas + BESS</b></td> <td class="delta">грид-незалежність</td></tr>
+      <tr><td>PUE</td>                     <td class="classic">1.45 – 1.6</td>         <td class="ai"><b>1.18 target</b> · DLC</td>          <td class="delta"><b>−24%</b> енергії</td></tr>
+      <tr><td>Час до commissioning</td>    <td class="classic">9–12 міс.</td>          <td class="ai"><b>14 тиж.</b> · turn-key</td>         <td class="delta">×3 швидше</td></tr>
+      <tr><td>Підрядники</td>              <td class="classic">5–7 вендорів</td>       <td class="ai"><b>1 контракт</b> · Alpha Grissin</td><td class="delta">−ризик інтеграції</td></tr>
+    </tbody>
+  </table>
+  <div class="footnote">● <b>Під ваше завдання — не під каталог.</b> Кожен ряд — інженерне рішення, обґрунтоване вимірюваннями вашого об'єкта.</div>
+</section>
+
+<!-- ─── STACK — datasheet ─── -->
+<section class="va-stack" id="stack">
+  <div class="inner">
+    <div class="head">
+      <div class="num">03</div>
+      <div>
+        <h2>Повний AI-стек — <em>від CDU до GPU-оптики.</em></h2>
+        <p>Шість підсистем. Один контракт. Один SLA. Один інженерний штаб у Києві.</p>
+      </div>
+      <div class="legend">
+        <div><b>VENDOR</b> · ENGINEERED PARTNERS</div>
+        <div><b>SPEC</b> · KEY PARAMETER</div>
+        <div><b>STATUS</b> · DEPLOYED IN UKRAINE</div>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>idx</th>
+          <th>компонент</th>
+          <th>vendor</th>
+          <th>specification</th>
+          <th>навіщо</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row">
+          <td class="idx">01</td>
+          <td class="comp"><b>Рідинне охолодження</b><span>CDU / DLC · direct-to-chip</span></td>
+          <td class="vendor"><b>Vertiv</b> · Liebert XDU</td>
+          <td class="spec hot">до 1 000 кВт / rack-row</td>
+          <td class="use">Прямий контакт із чипом GPU. Знімає 100+ кВт без overflow у CRAC. PUE 1.18.</td>
+          <td class="status"></td>
+        </tr>
+        <tr class="row">
+          <td class="idx">02</td>
+          <td class="comp"><b>High-density стійки</b><span>Vertiv VRC · sealed cabinet</span></td>
+          <td class="vendor"><b>Vertiv</b> · 750A busway</td>
+          <td class="spec">до 500 кВт / стійку</td>
+          <td class="use">Конструктив під DLC manifold + 750A bus. Сумісно з NVIDIA HGX H100/H200/GB200.</td>
+          <td class="status"></td>
+        </tr>
+        <tr class="row">
+          <td class="idx">03</td>
+          <td class="comp"><b>AI UPS</b><span>Liebert EXM2 / APM</span></td>
+          <td class="vendor"><b>Vertiv</b> · Liebert</td>
+          <td class="spec">2N+1 · &lt; 2 ms</td>
+          <td class="use">Захист транзієнтів GPU 200–400 А/мс. Класичний UPS не встигає — Liebert встигає.</td>
+          <td class="status"></td>
+        </tr>
+        <tr class="row">
+          <td class="idx">04</td>
+          <td class="comp"><b>DCIM для AI</b><span>Trellis · Environet Alert</span></td>
+          <td class="vendor"><b>Vertiv</b> · Trellis</td>
+          <td class="spec">per-GPU · 1 sec poll</td>
+          <td class="use">Моніторинг кластера до окремої GPU-карти. Capacity, температура, втрати — у одному вікні.</td>
+          <td class="status"></td>
+        </tr>
+        <tr class="row">
+          <td class="idx">05</td>
+          <td class="comp"><b>GPU-оптика</b><span>Optical fabric · NDR IB / 800GbE</span></td>
+          <td class="vendor"><b>HUBER+SUHNER</b></td>
+          <td class="spec hot">800 G · 480 ns</td>
+          <td class="use">High-speed interconnect для NVIDIA Quantum-2. MTP/MPO patching, sub-µs latency.</td>
+          <td class="status"></td>
+        </tr>
+        <tr class="row">
+          <td class="idx">06</td>
+          <td class="comp"><b>Резервна генерація</b><span>Diesel · gas · hybrid BESS</span></td>
+          <td class="vendor"><b>Cummins</b></td>
+          <td class="spec">96 h autonomy</td>
+          <td class="use">Гібридні рішення з акумуляторами для миттєвого підхвату. Сертифіковано для UA grid.</td>
+          <td class="status"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ─── TRUST + FORM ─── -->
+<section class="va-trust" id="trust">
+  <div class="head">
+    <div class="num">04</div>
+    <div>
+      <h2>Кваліфікація + <em>профілювання</em>.</h2>
+      <p>Розкажіть параметри об'єкта — повернемося з первинною інженерною оцінкою. Без тендерних зобов'язань.</p>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="left">
+      <h4>● Реалізовано в Україні</h4>
+      <div class="ref"><div><b>Be Mobile Data Center</b><span>найбільший комерційний ЦОД України · Київ</span></div><span class="badge">Tier III</span></div>
+      <div class="ref"><div><b>United DC</b><span>Tier-3 TIA-942 · банківська категорія</span></div><span class="badge">ATD Uptime</span></div>
+      <div class="ref"><div><b>GigaCenter</b><span>ТОП-3 ЦОД України · телеком-операторський</span></div><span class="badge">Tier III</span></div>
+
+      <div class="stat-row">
+        <div class="s"><b>30+</b><span>Інженерів in-house</span></div>
+        <div class="s"><b>24×7×365</b><span>NOC · Київ</span></div>
+        <div class="s"><b>240+</b><span>Об'єктів · 25 років</span></div>
+      </div>
+    </div>
+
+    <form class="va-form" id="contact" onsubmit="handleSubmit(event)">
+      <h4>Інженерна <em>консультація</em></h4>
+      <p class="lede">Відповімо протягом <b>1 робочого дня</b>. Без тендерних зобов'язань.</p>
+
+      <div class="field">
+        <label>01 · Тип об'єкта <b>*</b></label>
+        <div class="chips" data-name="type">
+          <span class="chip on">Комерційний ЦОД</span>
+          <span class="chip">Банк</span>
+          <span class="chip">Держустанова</span>
+          <span class="chip">Телеком</span>
+          <span class="chip">Промисловість</span>
+          <span class="chip">Інше</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>02 · Кількість GPU-стійок <b>*</b></label>
+        <div class="chips" data-name="racks">
+          <span class="chip">1 – 5</span>
+          <span class="chip on">6 – 20</span>
+          <span class="chip">20+</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>03 · Ключова вимога <b>*</b></label>
+        <div class="chips" data-name="requirement">
+          <span class="chip">Охолодження</span>
+          <span class="chip">Живлення</span>
+          <span class="chip">Оптика</span>
+          <span class="chip">DCIM</span>
+          <span class="chip on">Повний стек</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>04 · Контакт <b>*</b></label>
+        <div class="row2">
+          <input type="text" name="name" placeholder="Ім'я" required />
+          <input type="email" name="email" placeholder="Email" required />
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primary">Надіслати запит <span class="arr">→</span></button>
+      <p class="micro">Дані використовуються лише для відповіді на ваш запит.<br/>Без розсилок. GDPR · DORA · НБУ 143/2025.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer class="foot">
+  <div class="top">
+    <div>
+      <div class="brand">Alpha Grissin Infotech Ukraine</div>
+      <p>25 років інженерного інтегратора. Vertiv AI Hub — повний стек AI-інфраструктури від одного підрядника.</p>
+    </div>
+    <div>
+      <h5>Стек</h5>
+      <ul>
+        <li>Liquid cooling</li>
+        <li>UPS Liebert</li>
+        <li>DCIM Trellis</li>
+        <li>GPU optics</li>
+        <li>Backup generation</li>
+      </ul>
+    </div>
+    <div>
+      <h5>Compliance</h5>
+      <ul>
+        <li>DORA</li>
+        <li>НБУ 143/2025</li>
+        <li>ISO 27001</li>
+        <li>TIA-942 Tier III</li>
+        <li>NIS2</li>
+      </ul>
+    </div>
+    <div>
+      <h5>Контакт</h5>
+      <ul>
+        <li><a href="tel:+380442517823" style="color:inherit;text-decoration:none;">+38 044 251 78 23</a></li>
+        <li><a href="/cdn-cgi/l/email-protection#d7b8b1b1beb4b297b6bba7bfb6b0a5bea4a4beb9f9a2b6" style="color:inherit;text-decoration:none;"><span class="__cf_email__" data-cfemail="650a03030c0600250409150d0402170c16160c0b4b1004">[email&#160;protected]</span></a></li>
+        <li>Київ · 24×7×365</li>
+      </ul>
+    </div>
+  </div>
+  <div class="bottom">
+    <span>© 2026 Alpha Grissin Infotech Ukraine</span>
+    <span>Vertiv · HUBER+SUHNER · Cummins authorised partner</span>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // chip selectors — single-select per group
+  document.querySelectorAll('.va-form .chips').forEach(group => {
+    group.addEventListener('click', e => {
+      if (!e.target.classList.contains('chip')) return;
+      group.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
+      e.target.classList.add('on');
+    });
+  });
+
+  // Formspree endpoint — replace YOUR_ID with your actual form ID from formspree.io
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_ID';
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+
+    const data = {
+      type: form.querySelector('.chips[data-name="type"] .on')?.textContent || '',
+      racks: form.querySelector('.chips[data-name="racks"] .on')?.textContent || '',
+      requirement: form.querySelector('.chips[data-name="requirement"] .on')?.textContent || '',
+      name: form.name.value,
+      email: form.email.value,
+      _subject: 'Vertiv AI Hub · нова заявка з лендінгу'
+    };
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = 'Надсилаємо...';
+
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok) {
+        form.innerHTML = '<h4>Дякуємо! <em>Заявка прийнята.</em></h4><p class="lede" style="margin-top:16px;">Ми звʼяжемось протягом <b>1 робочого дня</b> на вказаний email.</p>';
+      } else {
+        throw new Error('Submission failed');
+      }
+    } catch (err) {
+      console.error(err);
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalText;
+      alert('Виникла помилка. Спробуйте ще раз або напишіть на office@alphagrissin.ua');
+    }
+  }
+</script>
+
+</body>
+</html>
